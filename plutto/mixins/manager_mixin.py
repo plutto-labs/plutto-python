@@ -39,3 +39,39 @@ class ManagerMixin(metaclass=ABCMeta):
         ['all', 'get', 'create', 'update', 'delete'].
         """
 
+    def post_all_handler(self, objects, **kwargs):
+        """
+        Hook that runs after the :all: method. Receives the objects fetched
+        and **must** return them (either modified or as they came).
+        """
+        return objects
+
+    def post_get_handler(self, object_, identifier, **kwargs):
+        """
+        Hook that runs after the :get: method. Receives the object fetched
+        with its identifier and **must** return the object (either modified
+        or as it came).
+        """
+        return object_
+
+    def post_create_handler(self, object_, **kwargs):
+        """
+        Hook that runs after the :create: method. Receives the object fetched
+        and **must** return the it (either modified or as it came).
+        """
+        return object_
+
+    def post_update_handler(self, object_, identifier, **kwargs):
+        """
+        Hook that runs after the :update: method. Receives the object fetched
+        with its identifier and **must** return the object (either modified
+        or as it came).
+        """
+        return object_
+
+    def post_delete_handler(self, identifier, **kwargs):
+        """
+        Hook that runs after the :create: method. Receives the identifier
+        and **must** return it (either modified or as it came).
+        """
+        return identifier
