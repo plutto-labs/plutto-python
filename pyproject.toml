@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "plutto"
+version = "0.1.0"
+description = "The official Python client for Plutto API"
+authors = ["Nicolas Massardo <nmassardot@uc.cl>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+homepage = "https://plutto.cl/"
+repository = "https://github.com/plutto-labs/plutto-python"
+exclude = [
+    ".git",
+    ".coveragerc",
+    ".flake8",
+    ".pylintrc",
+    "Makefile",
+    "scripts",
+    "tests"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+httpx = ">=0.16, < 1.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
