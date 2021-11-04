@@ -1,4 +1,4 @@
-# Plutto Ruby SDK
+# Plutto Python SDK
 
 This library will help you easily integrate Plutto API to your software, making your developer life a little bit more enjoyable.
 
