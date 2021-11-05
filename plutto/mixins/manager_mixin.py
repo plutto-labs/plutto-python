@@ -2,13 +2,16 @@
 
 from abc import ABCMeta, abstractmethod
 
+from plutto.resource_handlers import resource_all
+from plutto.utils import get_resource_class, pluralize
+
 class ManagerMixin(metaclass=ABCMeta):
     """Class to hold the mixin for the managers."""
 
     def __init__(self, path, client):
         self._path = path
         self._client = client
-        self._handler = {
+        self._handlers = {
             "update": self.post_update_handler,
             "delete": self.post_delete_handler,
         }
@@ -38,6 +41,24 @@ class ManagerMixin(metaclass=ABCMeta):
         accessed using the manager. Must be an array with at leat one of:
         ['all', 'get', 'create', 'update', 'delete'].
         """
+
+    def _all(self, **kwargs):
+        """
+        Method to fetch all objects.
+
+        :kwargs: can be used to filter the results using the API parameters.
+        """
+        klass = get_resource_class(self.__class__.resource)
+        objects = resource_all(
+            client=self._client,
+            path=self._path,
+            klass=klass,
+            handlers=self._handlers,
+            methods=self.__class__.methods,
+            resource=pluralize(self.__class__.resource),
+            params=kwargs,
+        )
+        return self.post_all_handler(objects, **kwargs)
 
     def post_all_handler(self, objects, **kwargs):
         """
