@@ -1,4 +1,9 @@
 from importlib import import_module
+
+def singularize(string):
+    """Remove the last 's' from a string if exists."""
+    return string.rstrip("s")
+
 def pluralize(string):
     """Add an 's' to a string if it doesn't already end with 's'."""
     if string.endswith("s"):
@@ -22,3 +27,10 @@ def get_resource_class(snake_resource_name, value={}):
             return getattr(module, "GenericPluttoResource")
     return type(value)
 
+def objetize(klass, client, data, handlers={}, methods=[], path=None):
+    """Transform the :data: object into an object with class :klass:"""
+    if data is None:
+        return None
+    if klass in [str, int, float, bool]:
+        return klass(data)
+    return klass(client, handlers, methods, path, **data)
