@@ -7,7 +7,7 @@ def resource_all(client, path, klass, handlers, methods, resource, params):
     # paginated = True does nothing for now
     # lazy does nothing for now
     lazy = params.pop("lazy", True)
-    data = client.request(path, paginated=True, params=params)[resource]
+    data = client.request(path, paginated=False, params=params)[resource]
     if lazy:
         pass
 
