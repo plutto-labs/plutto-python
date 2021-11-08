@@ -31,6 +31,6 @@ def objetize(klass, client, data, handlers={}, methods=[], path=None):
     """Transform the :data: object into an object with class :klass:"""
     if data is None:
         return None
-    if klass in [str, int, float, bool]:
+    if klass in [str, int, dict, float, bool]:
         return klass(data)
     return klass(client, handlers, methods, path, **data)
