@@ -3,7 +3,7 @@
 from abc import ABCMeta, abstractmethod
 
 from plutto.resource_handlers import resource_all
-from plutto.utils import get_resource_class, pluralize
+from plutto.utils import get_resource_class, pluralize, can_raise_http_error
 
 class ManagerMixin(metaclass=ABCMeta):
     """Class to hold the mixin for the managers."""
@@ -42,6 +42,7 @@ class ManagerMixin(metaclass=ABCMeta):
         ['all', 'get', 'create', 'update', 'delete'].
         """
 
+    @can_raise_http_error
     def _all(self, **kwargs):
         """
         Method to fetch all objects.
