@@ -107,6 +107,15 @@ class ManagerMixin(metaclass=ABCMeta):
         object_ = self._get(unique_identifier)
         return object_.update(**kwargs)
 
+    @can_raise_http_error
+    def _delete(self, identifier, **kwargs):
+        """
+        Delete an instance of the resource being handled by the manager,
+        identified by :identifier:.
+        """
+        object_ = self._get(identifier)
+        return object_.delete(**kwargs)
+
     def post_all_handler(self, objects, **kwargs):
         """
         Hook that runs after the :all: method. Receives the objects fetched
@@ -129,7 +138,7 @@ class ManagerMixin(metaclass=ABCMeta):
         """
         return object_
 
-    def post_update_handler(self, object_, identifier, **kwargs):
+    def post_update_handler(self, object_, unique_identifier, **kwargs):
         """
         Hook that runs after the :update: method. Receives the object fetched
         with its identifier and **must** return the object (either modified
