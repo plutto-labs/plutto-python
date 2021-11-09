@@ -6,5 +6,5 @@ class CustomersManager(ManagerMixin):
     """Class to hold the customers manager."""
 
     resource = "customer"
-    methods = ["all"]
+    methods = ["all", "get", "create", "update", "delete"]
 
