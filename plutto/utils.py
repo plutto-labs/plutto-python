@@ -1,8 +1,12 @@
 from importlib import import_module
 
+from plutto.errors import PluttoError
+
+
 def singularize(string):
     """Remove the last 's' from a string if exists."""
     return string.rstrip("s")
+
 
 def pluralize(string):
     """Add an 's' to a string if it doesn't already end with 's'."""
@@ -10,9 +14,11 @@ def pluralize(string):
         return string
     return string + "s"
 
+
 def snake_to_pascal(snake_string):
     """Convert a snake_case string to PascalCase."""
     return ''.join(word.title() for word in snake_string.split('_'))
+
 
 def get_resource_class(snake_resource_name, value={}):
     """
@@ -26,6 +32,16 @@ def get_resource_class(snake_resource_name, value={}):
         except AttributeError:
             return getattr(module, "GenericPluttoResource")
     return type(value)
+
+
+def get_error_class(function):
+    """
+    Given an error name (in snake case), return the appropiate
+    error class.
+    """
+    module = import_module("plutto.errors")
+    return getattr(module, snake_to_pascal(function), PluttoError)
+
 
 def objetize(klass, client, data, handlers={}, methods=[], path=None):
     """Transform the :data: object into an object with class :klass:"""

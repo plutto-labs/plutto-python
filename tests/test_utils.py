@@ -1,9 +1,11 @@
+from plutto.errors import PluttoError, AuthenticationError
 from plutto.resources import Customer
 from plutto.utils import (
     singularize,
     pluralize,
     snake_to_pascal,
     get_resource_class,
+    get_error_class,
     objetize,
 )
 
@@ -74,6 +76,18 @@ class TestGetResourceClass:
         resource = "anyone"
         klass = get_resource_class(resource, value=True)
         assert klass is bool
+
+
+class TestGetErrorClass:
+    def test_valid_error(self):
+        error_name = "authentication_error"
+        error = get_error_class(error_name)
+        assert error is AuthenticationError
+
+    def test_invalid_error(self):
+        error_name = "invalid_error"
+        error = get_error_class(error_name)
+        assert error is PluttoError
 
 
 class ExampleClass:
