@@ -22,3 +22,18 @@ def resource_all(client, path, klass, handlers, methods, resource, params):
         )
         for element in data
     ]
+
+
+def resource_get(client, path, id_, klass, handlers, methods, resource, params):
+    """Fetch a specific instance of a resource."""
+    data = client.request(f"{path}/{id_}", method="get", params=params)[resource]
+    return objetize(
+        klass,
+        client,
+        data,
+        handlers=handlers,
+        methods=methods,
+        path=path,
+    )
+
+
