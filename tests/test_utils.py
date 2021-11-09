@@ -1,6 +1,10 @@
+import httpx
+import pytest
+
 from plutto.errors import PluttoError, AuthenticationError
 from plutto.resources import Customer
 from plutto.utils import (
+    can_raise_http_error,
     singularize,
     pluralize,
     snake_to_pascal,
@@ -88,6 +92,33 @@ class TestGetErrorClass:
         error_name = "invalid_error"
         error = get_error_class(error_name)
         assert error is PluttoError
+
+
+class TestCanRaiseHTTPError:
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        def no_error():
+            pass
+
+        def raise_http_error():
+            raise httpx.HTTPError("F")
+
+        def raise_generic_error():
+            raise ValueError("Not HTTP Error")
+
+        self.no_error = no_error
+        self.raise_http_error = raise_http_error
+        self.raise_generic_error = raise_generic_error
+
+    def test_no_error(self):
+        wrapped = can_raise_http_error(self.no_error)
+        wrapped()
+
+    def test_http_error(self):
+        wrapped = can_raise_http_error(self.raise_http_error)
+        with pytest.raises(Exception) as excinfo:
+            wrapped()
+        assert not isinstance(excinfo.value, PluttoError)
 
 
 class ExampleClass:

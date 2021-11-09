@@ -1,3 +1,4 @@
+import httpx
 from importlib import import_module
 
 from plutto.errors import PluttoError
@@ -41,6 +42,23 @@ def get_error_class(function):
     """
     module = import_module("plutto.errors")
     return getattr(module, snake_to_pascal(function), PluttoError)
+
+
+def can_raise_http_error(function):
+    """
+    Decorator that catches HTTPError exceptions and raises custom
+    Plutto errors instead.
+    """
+
+    def wrapper(*args, **kwargs):
+        try:
+            return function(*args, **kwargs)
+        except httpx.HTTPError as e:
+            error_data = e.response.json()
+            error = get_error_class(error_data["error"]["type"])
+            raise error(error_data["error"]) from None
+
+    return wrapper
 
 
 def objetize(klass, client, data, handlers={}, methods=[], path=None):
