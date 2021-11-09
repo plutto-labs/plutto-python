@@ -63,3 +63,6 @@ def resource_update(client, path, id_, klass, handlers, methods, params):
     )
 
 
+def resource_delete(client, path, id_, params):
+    """Delete a specific instance of a resource."""
+    return client.request(f"{path}/{id_}", method="delete", params=params)
