@@ -2,7 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
-from plutto.resource_handlers import resource_all
+from plutto.resource_handlers import resource_all, resource_get, resource_create
 from plutto.utils import get_resource_class, pluralize, can_raise_http_error
 
 class ManagerMixin(metaclass=ABCMeta):
@@ -60,6 +60,25 @@ class ManagerMixin(metaclass=ABCMeta):
             params=kwargs,
         )
         return self.post_all_handler(objects, **kwargs)
+
+    @can_raise_http_error
+    def _get(self, identifier, **kwargs):
+        """
+        Return an instanco of the resource being handled by the manager,
+        indentified by :identifier:.
+        """
+        klass = get_resource_class(self.__class__.resource)
+        object_ = resource_get(
+            client=self._client,
+            path=self._path,
+            id_=identifier,
+            klass=klass,
+            handlers=self._handlers,
+            methods=self.__class__.methods,
+            resource=self.__class__.resource,
+            params=kwargs,
+        )
+        return self.post_get_handler(object_, identifier, **kwargs)
 
     def post_all_handler(self, objects, **kwargs):
         """
