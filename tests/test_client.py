@@ -50,14 +50,17 @@ class TestClientCreationFunctionality:
 
 class TestClientRequestFunctionality:
     @pytest.fixture(autouse=True)
+    def patch_http_request(self, patch_http_client):
+        pass
+
     def setup_method(self):
-        self.base_url = "https://sandbox.getplutto.com/api/v1"
-        self.api_key = config("PLUTTO_API_KEY")
+        self.base_url = "https://test.com"
+        self.api_key = "super_secret_api_key"
         self.user_agent = "plutto-python/test"
         self.params = {"first_param": "value1", "second_param": "value2"}
         self.client = Client(self.base_url, self.api_key, self.user_agent, params=self.params)
 
     def test_get_request(self):
-        data = self.client.request("/customers")
+        data = self.client.request("/movements/3", method="get")
         assert isinstance(data, dict)
-        assert len(data) > 0
+        assert len(data.keys()) > 0
