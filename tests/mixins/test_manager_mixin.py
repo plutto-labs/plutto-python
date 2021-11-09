@@ -24,7 +24,7 @@ class EmptyMockManager(ManagerMixin):
 
 
 class ComplexMockManager(ManagerMixin):
-    resource = "customer"
+    resource = "resource_doesnt_exist"
     methods = ["all", "get", "create", "update", "delete"]
 
     def post_all_handler(self, objects, **kwargs):
@@ -50,9 +50,12 @@ class ComplexMockManager(ManagerMixin):
 
 class TestManagerMixinCreation:
     @pytest.fixture(autouse=True)
+    def patch_http_client(self, patch_http_client):
+        pass
+
     def setup_method(self):
-        self.base_url = "https://sandbox.getplutto.com/api/v1"
-        self.api_key = config("PLUTTO_API_KEY")
+        self.base_url = "https://test.com"
+        self.api_key = "super_secret_api_key"
         self.user_agent = "plutto-python/test"
         self.params = {"first_param": "value1", "second_param": "value2"}
         self.client = Client(
@@ -61,7 +64,7 @@ class TestManagerMixinCreation:
             user_agent=self.user_agent,
             params=self.params,
         )
-        self.path = "/customers"
+        self.path = "/resources"
 
     def test_invalid_methods(self):
         with pytest.raises(TypeError):
@@ -77,15 +80,18 @@ class TestManagerMixinCreation:
             manager.all()
 
     def test_calling_valid_methods(self):
-        manager = ComplexMockManager(self.path, self.client)
-        manager.all()
+        manager = IncompleteMockManager(self.path, self.client)
+        manager.get("id")
 
 
 class TestManagerMixinMethods:
     @pytest.fixture(autouse=True)
+    def patch_http_client(self, patch_http_client):
+        pass
+
     def setup_method(self):
-        self.base_url = "https://sandbox.getplutto.com/api/v1"
-        self.api_key = config("PLUTTO_API_KEY")
+        self.base_url = "https://test.com"
+        self.api_key = "super_secret_api_key"
         self.user_agent = "plutto-python/test"
         self.params = {"first_param": "value1", "second_param": "value2"}
         self.client = Client(
@@ -94,8 +100,8 @@ class TestManagerMixinMethods:
             user_agent=self.user_agent,
             params=self.params,
         )
-        self.path = "/customers"
-        self.manager = ComplexMockManager(self.path, self.client)
+        self.path = "/resources"
+        self.manager = EmptyMockManager(self.path, self.client)
 
     def test_all_not_lazy_method(self):
         objects = self.manager.all(lazy=False)
@@ -106,9 +112,12 @@ class TestManagerMixinMethods:
 
 class TestManagerMixinHandlers:
     @pytest.fixture(autouse=True)
+    def patch_http_client(self, patch_http_client):
+        pass
+
     def setup_method(self):
-        self.base_url = "https://sandbox.getplutto.com/api/v1"
-        self.api_key = config("PLUTTO_API_KEY")
+        self.base_url = "https://test.com"
+        self.api_key = "super_secret_api_key"
         self.user_agent = "plutto-python/test"
         self.params = {"first_param": "value1", "second_param": "value2"}
         self.client = Client(
@@ -117,7 +126,7 @@ class TestManagerMixinHandlers:
             user_agent=self.user_agent,
             params=self.params,
         )
-        self.path = "/customers"
+        self.path = "/resources"
         self.manager = ComplexMockManager(self.path, self.client)
 
     def test_all_handler(self, capsys):
