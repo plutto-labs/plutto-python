@@ -80,6 +80,23 @@ class ManagerMixin(metaclass=ABCMeta):
         )
         return self.post_get_handler(object_, identifier, **kwargs)
 
+    @can_raise_http_error
+    def _create(self, **kwargs):
+        """
+        Create an instance of the resource being handled by the manager.
+        Data is passed using :kwargs:, as specified by the API.
+        """
+        klass = get_resource_class(self.__class__.resource)
+        object_ = resource_create(
+            client=self._client,
+            path=self._path,
+            klass=klass,
+            handlers=self._handlers,
+            methods=self.__class__.methods,
+            params=kwargs,
+        )
+        return self.post_create_handler(object_, **kwargs)
+
     def post_all_handler(self, objects, **kwargs):
         """
         Hook that runs after the :all: method. Receives the objects fetched
