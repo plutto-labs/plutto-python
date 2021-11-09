@@ -1,12 +1,18 @@
 from abc import ABCMeta
-from plutto.utils import get_resource_class, singularize, objetize
+from plutto.resource_handlers import resource_update, resource_delete
+from plutto.utils import (
+    can_raise_http_error,
+    get_resource_class,
+    singularize,
+    objetize
+)
 
 class ResourceMixin(metaclass=ABCMeta):
 
     """Represents the mixin for the resources."""
 
     mappings = {}
-    resource_indetifier = "id"
+    resource_identifier = "id"
 
     def __init__(self, client, handlers, methods, path, **kwargs):
         self._client = client
@@ -35,3 +41,21 @@ class ResourceMixin(metaclass=ABCMeta):
                 f"{self.__class__.__name__} has no attribute {attr.lstrip('_')}"
             )
         return getattr(self, f"_{attr}")
+
+    @can_raise_http_error
+    def _update(self, **kwargs):
+        """Updates the resource."""
+        id_ = getattr(self, self.__class__.resource_identifier)
+        object_ = resource_update(
+            client=self._client,
+            path=self._path,
+            id_=id_,
+            klass=self.__class__,
+            handlers=self._handlers,
+            methods=self._methods,
+            params=kwargs,
+        )
+        object_ = self._handlers.get("update")(object_, id_, **kwargs)
+        self.__dict__.update(object_.__dict__)
+        return self
+

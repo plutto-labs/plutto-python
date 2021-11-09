@@ -50,3 +50,16 @@ def resource_create(client, path, klass, handlers, methods, params):
     )
 
 
+def resource_update(client, path, id_, klass, handlers, methods, params):
+    """Update a specific instance of a resource."""
+    data = client.request(f"{path}/{id_}", method="patch", json=params)
+    return objetize(
+        klass,
+        client,
+        data,
+        handlers=handlers,
+        methods=methods,
+        path=path,
+    )
+
+
