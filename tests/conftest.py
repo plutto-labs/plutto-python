@@ -88,3 +88,14 @@ def patch_http_client(monkeypatch):
                 }
             }
 
+    class MockClient(httpx.Client):
+        def request(self, method, url, params=None, json=None, **kwargs):
+            query = url.split("?")[-1].split("&") if "?" in url else []
+            inner_params = {y[0]: y[1] for y in (x.split("=") for x in query)}
+            complete_params = {**inner_params, **({} if params is None else params)}
+            usable_url = url.split("//")[-1].split("/", 1)[-1].split("?")[0]
+            return MockResponse(
+                method, self.base_url, usable_url, complete_params, json
+            )
+
+    monkeypatch.setattr(httpx, "Client", MockClient)
