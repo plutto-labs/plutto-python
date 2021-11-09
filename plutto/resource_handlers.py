@@ -37,3 +37,16 @@ def resource_get(client, path, id_, klass, handlers, methods, resource, params):
     )
 
 
+def resource_create(client, path, klass, handlers, methods, params):
+    """Create a new instance of a resource."""
+    data = client.request(path, method="post", json=params)
+    return objetize(
+        klass,
+        client,
+        data,
+        handlers=handlers,
+        methods=methods,
+        path=path,
+    )
+
+
