@@ -74,10 +74,10 @@ def patch_http_client(monkeypatch):
                             "params": self._params,
                             "json": self._json,
                             "page": self._page,
-                    }
-                    for _ in range(10)
-                ]
-            }
+                        }
+                        for _ in range(10)
+                    ]
+                }
             return {
                 "resource_doesnt_exist": {
                     "id": "idx",

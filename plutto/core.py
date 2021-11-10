@@ -8,6 +8,7 @@ from plutto.managers import CustomersManager
 from plutto.resources import customer
 from plutto.version import __version__
 
+
 class Plutto:
 
     """Encapsulates the core object's behaviour and methods."""

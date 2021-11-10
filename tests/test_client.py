@@ -1,8 +1,8 @@
 import httpx
 import pytest
-from decouple import config
 
 from plutto.client import Client
+
 
 class TestClientCreationFunctionality:
     def setup_method(self):
@@ -48,6 +48,7 @@ class TestClientCreationFunctionality:
         assert isinstance(client._client, httpx.Client)
         assert isinstance(client._Client__client, httpx.Client)
 
+
 class TestClientRequestFunctionality:
     @pytest.fixture(autouse=True)
     def patch_http_request(self, patch_http_client):
@@ -58,7 +59,9 @@ class TestClientRequestFunctionality:
         self.api_key = "super_secret_api_key"
         self.user_agent = "plutto-python/test"
         self.params = {"first_param": "value1", "second_param": "value2"}
-        self.client = Client(self.base_url, self.api_key, self.user_agent, params=self.params)
+        self.client = Client(
+            self.base_url, self.api_key, self.user_agent, params=self.params
+        )
 
     def test_get_request(self):
         data = self.client.request("/movements/3", method="get")

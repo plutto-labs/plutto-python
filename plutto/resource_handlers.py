@@ -2,6 +2,7 @@
 
 from plutto.utils import objetize
 
+
 def resource_all(client, path, klass, handlers, methods, resource, params):
     """Fetch all the instances of a resource."""
     # paginated = True does nothing for now

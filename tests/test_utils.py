@@ -1,16 +1,16 @@
 import httpx
 import pytest
 
-from plutto.errors import PluttoError, AuthenticationError
+from plutto.errors import AuthenticationError, PluttoError
 from plutto.resources import Customer
 from plutto.utils import (
     can_raise_http_error,
-    singularize,
-    pluralize,
-    snake_to_pascal,
-    get_resource_class,
     get_error_class,
+    get_resource_class,
     objetize,
+    pluralize,
+    singularize,
+    snake_to_pascal,
 )
 
 
@@ -128,6 +128,7 @@ class ExampleClass:
         self.methods = methods
         self.path = path
         self.data = kwargs
+
 
 class TestObjetize:
     def setup_method(self):
