@@ -2,7 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
-from plutto.resource_handlers import resource_all
+from plutto.resource_handlers import resource_all, resource_get, resource_create
 from plutto.utils import get_resource_class, pluralize, can_raise_http_error
 
 class ManagerMixin(metaclass=ABCMeta):
@@ -61,6 +61,61 @@ class ManagerMixin(metaclass=ABCMeta):
         )
         return self.post_all_handler(objects, **kwargs)
 
+    @can_raise_http_error
+    def _get(self, identifier, **kwargs):
+        """
+        Return an instanco of the resource being handled by the manager,
+        indentified by :identifier:.
+        """
+        klass = get_resource_class(self.__class__.resource)
+        object_ = resource_get(
+            client=self._client,
+            path=self._path,
+            id_=identifier,
+            klass=klass,
+            handlers=self._handlers,
+            methods=self.__class__.methods,
+            resource=self.__class__.resource,
+            params=kwargs,
+        )
+        return self.post_get_handler(object_, identifier, **kwargs)
+
+    @can_raise_http_error
+    def _create(self, **kwargs):
+        """
+        Create an instance of the resource being handled by the manager.
+        Data is passed using :kwargs:, as specified by the API.
+        """
+        klass = get_resource_class(self.__class__.resource)
+        object_ = resource_create(
+            client=self._client,
+            path=self._path,
+            klass=klass,
+            handlers=self._handlers,
+            methods=self.__class__.methods,
+            params=kwargs,
+        )
+        return self.post_create_handler(object_, **kwargs)
+
+    @can_raise_http_error
+    def _update(self, unique_identifier, **kwargs):
+        """
+        Update an instance of the resource being handled by the manager,
+        identified by :identifier:. Data is passed using :kwargs:, as
+        specified by the API.
+        """
+        object_ = self._get(unique_identifier)
+        return object_.update(**kwargs)
+
+    @can_raise_http_error
+    def _delete(self, identifier, **kwargs):
+        """
+        Delete an instance of the resource being handled by the manager,
+        identified by :identifier:.
+        """
+        object_ = self._get(identifier)
+        return object_.delete(**kwargs)
+
     def post_all_handler(self, objects, **kwargs):
         """
         Hook that runs after the :all: method. Receives the objects fetched
@@ -83,7 +138,7 @@ class ManagerMixin(metaclass=ABCMeta):
         """
         return object_
 
-    def post_update_handler(self, object_, identifier, **kwargs):
+    def post_update_handler(self, object_, unique_identifier, **kwargs):
         """
         Hook that runs after the :update: method. Receives the object fetched
         with its identifier and **must** return the object (either modified
