@@ -1,5 +1,6 @@
-import httpx
 from importlib import import_module
+
+import httpx
 
 from plutto.errors import PluttoError
 
@@ -18,7 +19,7 @@ def pluralize(string):
 
 def snake_to_pascal(snake_string):
     """Convert a snake_case string to PascalCase."""
-    return ''.join(word.title() for word in snake_string.split('_'))
+    return "".join(word.title() for word in snake_string.split("_"))
 
 
 def get_resource_class(snake_resource_name, value={}):

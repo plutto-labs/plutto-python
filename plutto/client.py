@@ -3,7 +3,9 @@ Module to house the Client object of the Plutto Python SDK.
 """
 
 from json.decoder import JSONDecodeError
+
 import httpx
+
 
 class Client:
     """Encapsulates the client behaviour and methods."""

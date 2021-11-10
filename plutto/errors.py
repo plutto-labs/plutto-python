@@ -1,6 +1,7 @@
 """Module to hold the Plutto custom errors."""
 from .constants import GENERAL_DOC_URL
 
+
 class PluttoError(Exception):
     """Represents the base custom error."""
 
@@ -25,6 +26,7 @@ class InvalidRequestError(PluttoError):
 class BadRequestError(PluttoError):
     """Represent the bad request error."""
 
+
 class UnprocessableEntityError(PluttoError):
     """Represents the unprocessable entity error."""
 
@@ -43,5 +45,3 @@ class InternalServerError(PluttoError):
 
 class AuthenticationError(PluttoError):
     """Represents the authentication error."""
-
-

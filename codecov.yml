@@ -1,0 +1,16 @@
+codecov:
+  bot: fdominguezclaro
+  require_ci_to_pass: true
+comment:
+  layout: diff, files
+  require_changes: true
+coverage:
+  status:
+    patch:
+      default:
+        informational: false
+        target: auto
+    project:
+      default:
+        informational: false
+        target: auto

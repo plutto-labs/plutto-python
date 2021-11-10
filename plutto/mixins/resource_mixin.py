@@ -1,11 +1,8 @@
 from abc import ABCMeta
-from plutto.resource_handlers import resource_update, resource_delete
-from plutto.utils import (
-    can_raise_http_error,
-    get_resource_class,
-    singularize,
-    objetize
-)
+
+from plutto.resource_handlers import resource_delete, resource_update
+from plutto.utils import can_raise_http_error, get_resource_class, objetize, singularize
+
 
 class ResourceMixin(metaclass=ABCMeta):
 

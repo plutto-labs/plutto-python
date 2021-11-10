@@ -2,8 +2,9 @@
 
 from abc import ABCMeta, abstractmethod
 
-from plutto.resource_handlers import resource_all, resource_get, resource_create
-from plutto.utils import get_resource_class, pluralize, can_raise_http_error
+from plutto.resource_handlers import resource_all, resource_create, resource_get
+from plutto.utils import can_raise_http_error, get_resource_class, pluralize
+
 
 class ManagerMixin(metaclass=ABCMeta):
     """Class to hold the mixin for the managers."""

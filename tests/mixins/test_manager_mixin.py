@@ -1,5 +1,4 @@
 import pytest
-from decouple import config
 
 from plutto.client import Client
 from plutto.mixins import ManagerMixin, ResourceMixin
