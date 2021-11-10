@@ -1,6 +1,27 @@
-# Plutto Python SDK
+<h1 align="center">Plutto Python Client</h1>
+
+<p align="center">
+  <a href="https://pypi.org/project/plutto" target="_blank">
+      <img src="https://img.shields.io/pypi/v/plutto?label=version&logo=python&logoColor=%23fff&color=306998" alt="PyPI - Version">
+  </a>
+
+  <a href="https://github.com/plutto-labs/plutto-python/actions?query=workflow%3Atests" target="_blank">
+      <img src="https://img.shields.io/github/workflow/status/plutto-labs/plutto-python/tests?label=tests&logo=python&logoColor=%23fff" alt="Tests">
+  </a>
+
+  <a href="https://codecov.io/gh/plutto-labs/plutto-python" target="_blank">
+      <img src="https://img.shields.io/codecov/c/gh/plutto-labs/plutto-python?label=coverage&logo=codecov&logoColor=ffffff" alt="Coverage">
+  </a>
+
+  <a href="https://github.com/plutto-labs/plutto-python/actions?query=workflow%3Alinters" target="_blank">
+      <img src="https://img.shields.io/github/workflow/status/plutto-labs/plutto-python/linters?label=linters&logo=github" alt="Linters">
+  </a>
+</p>
 
 This library will help you easily integrate Plutto API to your software, making your developer life a little bit more enjoyable.
+
+
+---
 
 ## Installation
 

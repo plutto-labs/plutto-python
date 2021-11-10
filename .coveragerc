@@ -1,0 +1,5 @@
+[run]
+omit =
+    plutto/constants.py
+    plutto/version.py
+source=plutto
