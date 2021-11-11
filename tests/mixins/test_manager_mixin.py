@@ -110,6 +110,27 @@ class TestManagerMixinMethods:
         for object_ in objects:
             assert isinstance(object_, ResourceMixin)
 
+    def test_get_method(self):
+        id_ = "my_id"
+        object_ = self.manager.get(id_)
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "get"
+        assert id_ in object_.url
+
+    def test_create_method(self):
+        object_ = self.manager.create()
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "post"
+
+    def test_update_method(self):
+        object_ = self.manager.update("my_id")
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "patch"
+
+    def test_delete_method(self):
+        id_ = self.manager.delete("my_id")
+        isinstance(id_, str)
+
 
 class TestManagerMixinHandlers:
     @pytest.fixture(autouse=True)
