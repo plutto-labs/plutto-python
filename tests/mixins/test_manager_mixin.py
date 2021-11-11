@@ -30,7 +30,7 @@ class ComplexMockManager(ManagerMixin):
         print("Executing the 'post all' handler")
         return objects
 
-    def post_get_handler(self, object_, **kwargs):
+    def post_get_handler(self, object_, identifier, **kwargs):
         print("Executing the 'post get' handler")
         return object_
 
@@ -38,7 +38,7 @@ class ComplexMockManager(ManagerMixin):
         print("Executing the 'post create' handler")
         return object_
 
-    def post_update_handler(self, object_, identifier, **kwargs):
+    def post_update_handler(self, object_, unique_identifier, **kwargs):
         print("Executing the 'post update' handler")
         return object_
 
@@ -66,10 +66,12 @@ class TestManagerMixinCreation:
         self.path = "/resources"
 
     def test_invalid_methods(self):
+        # pylint: disable=abstract-class-instantiated
         with pytest.raises(TypeError):
             InvalidMethodsMockManager(self.path, self.client)
 
     def test_invalid_resource(self):
+        # pylint: disable=abstract-class-instantiated
         with pytest.raises(TypeError):
             InvalidResourceMockManager(self.path, self.client)
 
@@ -108,6 +110,27 @@ class TestManagerMixinMethods:
         for object_ in objects:
             assert isinstance(object_, ResourceMixin)
 
+    def test_get_method(self):
+        id_ = "my_id"
+        object_ = self.manager.get(id_)
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "get"
+        assert id_ in object_.url
+
+    def test_create_method(self):
+        object_ = self.manager.create()
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "post"
+
+    def test_update_method(self):
+        object_ = self.manager.update("my_id")
+        assert isinstance(object_, ResourceMixin)
+        assert object_.method == "patch"
+
+    def test_delete_method(self):
+        id_ = self.manager.delete("my_id")
+        isinstance(id_, str)
+
 
 class TestManagerMixinHandlers:
     @pytest.fixture(autouse=True)
@@ -132,3 +155,23 @@ class TestManagerMixinHandlers:
         self.manager.all()
         captured = capsys.readouterr().out
         assert "all" in captured
+
+    def test_get_handler(self, capsys):
+        self.manager.get("my_id")
+        captured = capsys.readouterr().out
+        assert "get" in captured
+
+    def test_create_handler(self, capsys):
+        self.manager.create()
+        captured = capsys.readouterr().out
+        assert "create" in captured
+
+    def test_update_handler(self, capsys):
+        self.manager.update("my_id")
+        captured = capsys.readouterr().out
+        assert "update" in captured
+
+    def test_delete_handler(self, capsys):
+        self.manager.delete("my_id")
+        captured = capsys.readouterr().out
+        assert "delete" in captured
