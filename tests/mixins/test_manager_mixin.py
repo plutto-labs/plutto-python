@@ -66,10 +66,12 @@ class TestManagerMixinCreation:
         self.path = "/resources"
 
     def test_invalid_methods(self):
+        # pylint: disable=abstract-class-instantiated
         with pytest.raises(TypeError):
             InvalidMethodsMockManager(self.path, self.client)
 
     def test_invalid_resource(self):
+        # pylint: disable=abstract-class-instantiated
         with pytest.raises(TypeError):
             InvalidResourceMockManager(self.path, self.client)
 
