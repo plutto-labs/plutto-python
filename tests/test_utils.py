@@ -120,6 +120,12 @@ class TestCanRaiseHTTPError:
             wrapped()
         assert not isinstance(excinfo.value, PluttoError)
 
+    def test_generic_error(self):
+        wrapped = can_raise_http_error(self.raise_generic_error)
+        with pytest.raises(Exception) as excinfo:
+            wrapped()
+        assert not isinstance(excinfo.value, PluttoError)
+
 
 class ExampleClass:
     def __init__(self, client, handlers, methods, path, **kwargs):
