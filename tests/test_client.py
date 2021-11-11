@@ -1,3 +1,5 @@
+from types import GeneratorType
+
 import httpx
 import pytest
 
@@ -62,6 +64,10 @@ class TestClientRequestFunctionality:
         self.client = Client(
             self.base_url, self.api_key, self.user_agent, params=self.params
         )
+
+    def test_paginated_request(self):
+        data = self.client.request("/movements", paginated=True)
+        assert isinstance(data, GeneratorType)
 
     def test_get_request(self):
         data = self.client.request("/movements/3", method="get")

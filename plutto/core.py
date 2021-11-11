@@ -5,7 +5,6 @@ Core module to house the Plutto object of the Plutto Python SDK.
 from plutto.client import Client
 from plutto.constants import API_BASE_URL, API_VERSION
 from plutto.managers import CustomersManager
-from plutto.resources import customer
 from plutto.version import __version__
 
 
@@ -31,5 +30,5 @@ class Plutto:
         return self.__customers_manager
 
     @customers.setter
-    def customers(self, value):
+    def customers(self, value):  # pylint: disable=no-self-use
         raise NameError("Attribute name corresponds to a manager")
