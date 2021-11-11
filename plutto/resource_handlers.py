@@ -39,9 +39,9 @@ def resource_get(client, path, id_, klass, handlers, methods, resource, params):
     )
 
 
-def resource_create(client, path, klass, handlers, methods, params):
+def resource_create(client, path, klass, handlers, methods, resource, params):
     """Create a new instance of a resource."""
-    data = client.request(path, method="post", json=params)
+    data = client.request(path, method="post", json=params)[resource]
     return objetize(
         klass,
         client,
@@ -52,9 +52,9 @@ def resource_create(client, path, klass, handlers, methods, params):
     )
 
 
-def resource_update(client, path, id_, klass, handlers, methods, params):
+def resource_update(client, path, id_, klass, handlers, methods, resource, params):
     """Update a specific instance of a resource."""
-    data = client.request(f"{path}/{id_}", method="patch", json=params)
+    data = client.request(f"{path}/{id_}", method="patch", json=params)[resource]
     return objetize(
         klass,
         client,

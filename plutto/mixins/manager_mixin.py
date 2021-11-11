@@ -94,6 +94,7 @@ class ManagerMixin(metaclass=ABCMeta):  # pylint: disable=no-self-use
             klass=klass,
             handlers=self._handlers,
             methods=self.__class__.methods,
+            resource=self.__class__.resource,
             params=kwargs,
         )
         return self.post_create_handler(object_, **kwargs)
@@ -106,7 +107,7 @@ class ManagerMixin(metaclass=ABCMeta):  # pylint: disable=no-self-use
         specified by the API.
         """
         object_ = self._get(unique_identifier)
-        return object_.update(**kwargs)
+        return object_.update(self.__class__.resource, **kwargs)
 
     @can_raise_http_error
     def _delete(self, identifier, **kwargs):

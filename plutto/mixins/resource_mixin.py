@@ -29,7 +29,7 @@ class ResourceMixin(metaclass=ABCMeta):
                     klass = get_resource_class(resource, value=value)
                     setattr(self, key, objetize(klass, client, value))
                 self._attributes.append(key)
-            except NameError:
+            except NameError:  # pragma: no cover
                 pass
 
     def __getattr__(self, attr):
@@ -40,7 +40,7 @@ class ResourceMixin(metaclass=ABCMeta):
         return getattr(self, f"_{attr}")
 
     @can_raise_http_error
-    def _update(self, **kwargs):
+    def _update(self, resource, **kwargs):
         """Updates the resource."""
         id_ = getattr(self, self.__class__.resource_identifier)
         object_ = resource_update(
@@ -50,6 +50,7 @@ class ResourceMixin(metaclass=ABCMeta):
             klass=self.__class__,
             handlers=self._handlers,
             methods=self._methods,
+            resource=resource,
             params=kwargs,
         )
         object_ = self._handlers.get("update")(object_, id_, **kwargs)
