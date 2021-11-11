@@ -6,6 +6,8 @@ from json.decoder import JSONDecodeError
 
 import httpx
 
+from plutto.paginator import paginate
+
 
 class Client:
     """Encapsulates the client behaviour and methods."""
@@ -37,12 +39,14 @@ class Client:
             "Authorization": f"Bearer {self.api_key}",
         }
 
-    def request(self, path, paginated=False, method="get", params=None, json=None):
+    def request(
+        self, path, paginated=False, method="get", params=None, json=None, resource=None
+    ):
         """
         Uses the internal httpx client to make a simple request.
         """
         if paginated:
-            pass
+            return paginate(self._client, path, resource, params=params)
 
         response = self._client.request(method, path, params=params, json=json)
         response.raise_for_status()
