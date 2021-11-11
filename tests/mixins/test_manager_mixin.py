@@ -30,7 +30,7 @@ class ComplexMockManager(ManagerMixin):
         print("Executing the 'post all' handler")
         return objects
 
-    def post_get_handler(self, object_, **kwargs):
+    def post_get_handler(self, object_, identifier, **kwargs):
         print("Executing the 'post get' handler")
         return object_
 
@@ -38,7 +38,7 @@ class ComplexMockManager(ManagerMixin):
         print("Executing the 'post create' handler")
         return object_
 
-    def post_update_handler(self, object_, identifier, **kwargs):
+    def post_update_handler(self, object_, unique_identifier, **kwargs):
         print("Executing the 'post update' handler")
         return object_
 
