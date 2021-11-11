@@ -6,7 +6,7 @@ from plutto.resource_handlers import resource_all, resource_create, resource_get
 from plutto.utils import can_raise_http_error, get_resource_class, pluralize
 
 
-class ManagerMixin(metaclass=ABCMeta):
+class ManagerMixin(metaclass=ABCMeta):  # pylint: disable=no-self-use
     """Class to hold the mixin for the managers."""
 
     def __init__(self, path, client):
