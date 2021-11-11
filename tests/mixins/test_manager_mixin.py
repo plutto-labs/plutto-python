@@ -155,3 +155,23 @@ class TestManagerMixinHandlers:
         self.manager.all()
         captured = capsys.readouterr().out
         assert "all" in captured
+
+    def test_get_handler(self, capsys):
+        self.manager.get("my_id")
+        captured = capsys.readouterr().out
+        assert "get" in captured
+
+    def test_create_handler(self, capsys):
+        self.manager.create()
+        captured = capsys.readouterr().out
+        assert "create" in captured
+
+    def test_update_handler(self, capsys):
+        self.manager.update("my_id")
+        captured = capsys.readouterr().out
+        assert "update" in captured
+
+    def test_delete_handler(self, capsys):
+        self.manager.delete("my_id")
+        captured = capsys.readouterr().out
+        assert "delete" in captured
