@@ -68,3 +68,17 @@ def resource_update(client, path, id_, klass, handlers, methods, resource, param
 def resource_delete(client, path, id_, params):
     """Delete a specific instance of a resource."""
     return client.request(f"{path}/{id_}", method="delete", params=params)
+
+
+def resource_permission(client, path, id_, permission_name, klass, resource, params):
+    """Fetch the permissions of a specific instance of a resource."""
+    data = client.request(
+        f"{path}/{id_}/has_permission/{permission_name}", method="get", params=params
+    )[resource]
+
+    return objetize(
+        klass,
+        client,
+        data,
+        path=path,
+    )
