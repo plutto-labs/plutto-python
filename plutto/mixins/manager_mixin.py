@@ -65,7 +65,7 @@ class ManagerMixin(metaclass=ABCMeta):  # pylint: disable=no-self-use
     @can_raise_http_error
     def _get(self, identifier, **kwargs):
         """
-        Return an instanco of the resource being handled by the manager,
+        Return an instance of the resource being handled by the manager,
         indentified by :identifier:.
         """
         klass = get_resource_class(self.__class__.resource)
