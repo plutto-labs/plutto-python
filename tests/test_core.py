@@ -1,3 +1,5 @@
+import pytest
+
 from plutto import Plutto
 from plutto.client import Client
 from plutto.mixins import ManagerMixin
@@ -27,3 +29,19 @@ class TestCorePluttoObject:
         assert isinstance(plutto.customers, ManagerMixin)
         assert isinstance(plutto._Plutto__customers_manager, ManagerMixin)
 
+    def test_subscriptions_manager(self):
+        # pylint: disable=protected-access
+        api_key = "test_api_key"
+        plutto = Plutto(api_key)
+
+        assert plutto._Plutto__subscriptions_manager is None
+        assert isinstance(plutto.subscriptions, ManagerMixin)
+        assert plutto._Plutto__subscriptions_manager is not None
+        assert isinstance(plutto._Plutto__subscriptions_manager, ManagerMixin)
+
+        with pytest.raises(NameError):
+            plutto.subscriptions = None
+
+        assert plutto.subscriptions is not None
+        assert isinstance(plutto.subscriptions, ManagerMixin)
+        assert isinstance(plutto._Plutto__subscriptions_manager, ManagerMixin)
