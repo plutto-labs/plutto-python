@@ -1,6 +1,6 @@
 """Module to hold the Permission resource."""
 
-from plutto.mixins.resource_mixin import ResourceMixin
+from plutto.mixins import ResourceMixin
 
 
 class CustomerPermission(ResourceMixin):

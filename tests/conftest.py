@@ -78,6 +78,17 @@ def patch_http_client(monkeypatch):
                         for _ in range(10)
                     ]
                 }
+            if self._method == "get" and self._url[-4:] == "name":
+                return {
+                    "customer_permission": {
+                        "id": "idx",
+                        "method": self._method,
+                        "url": self._url,
+                        "params": self._params,
+                        "json": self._json,
+                    }
+                }
+
             return {
                 "resource_doesnt_exist": {
                     "id": "idx",
