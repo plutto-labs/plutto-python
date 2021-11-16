@@ -2,7 +2,7 @@
 
 from plutto.mixins import ManagerMixin
 from plutto.resource_handlers import resource_permission
-from plutto.utils import get_resource_class, can_raise_http_error
+from plutto.utils import can_raise_http_error, get_resource_class
 
 
 class CustomersManager(ManagerMixin):
