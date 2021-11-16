@@ -14,3 +14,5 @@ coverage:
       default:
         informational: false
         target: auto
+ignore:
+  - plutto/resources
