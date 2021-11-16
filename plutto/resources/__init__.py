@@ -3,3 +3,4 @@
 from .customer import Customer
 from .customer_permission import CustomerPermission
 from .generic_plutto_resource import GenericPluttoResource
+from .subscription import Subscription
