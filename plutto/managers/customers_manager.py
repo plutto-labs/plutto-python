@@ -2,7 +2,7 @@
 
 from plutto.mixins import ManagerMixin
 from plutto.resource_handlers import resource_permission
-from plutto.utils import get_resource_class
+from plutto.utils import get_resource_class, can_raise_http_error
 
 
 class CustomersManager(ManagerMixin):
@@ -11,6 +11,7 @@ class CustomersManager(ManagerMixin):
     resource = "customer"
     methods = ["all", "get", "create", "update", "delete"]
 
+    @can_raise_http_error
     def permission(self, unique_identifier, permission_name, **kwargs):
         """Check if the user has the permission with permission_name"""
         resource = "customer_permission"
