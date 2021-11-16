@@ -82,3 +82,20 @@ def resource_permission(client, path, id_, permission_name, klass, resource, par
         data,
         path=path,
     )
+
+
+def resource_patch(
+    client, path, id_, action, klass, handlers, methods, resource, params
+):
+    """Patch to a specific endpoint of a resource"""
+    data = client.request(f"{path}/{id_}/{action}", method="patch", json=params)[
+        resource
+    ]
+    return objetize(
+        klass,
+        client,
+        data,
+        handlers=handlers,
+        methods=methods,
+        path=path,
+    )
