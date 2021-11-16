@@ -1,0 +1,213 @@
+import pytest
+
+from plutto.client import Client
+from plutto.mixins import ResourceMixin
+from plutto.resources import Customer, GenericPluttoResource
+
+
+class EmptyMockResource(ResourceMixin):
+    pass
+
+
+class ComplexMockResource(ResourceMixin):
+    mappings = {"resource": "resource_doesnt_exist"}
+    resource_identifier = "identifier"
+
+
+class TestResourceMixinCreation:
+    @pytest.fixture(autouse=True)
+    def patch_http_client(self, patch_http_client):
+        pass
+
+    def setup_method(self):
+        self.base_url = "https://test.com"
+        self.api_key = "test_api_key"
+        self.user_agent = "plutto-python/test"
+        self.params = {"first_param": "value1", "second_param": "value2"}
+        self.client = Client(
+            self.base_url,
+            self.api_key,
+            self.user_agent,
+            params=self.params,
+        )
+        self.path = "/resources"
+        self.handlers = {
+            "update": lambda object_, identifier: print("Calling update...") or object_,
+            "delete": lambda identifier: print("Calling delete...") or identifier,
+        }
+
+    def test_empty_mock_resource(self):
+        methods = []
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+
+        resource = EmptyMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+
+        assert isinstance(resource, ResourceMixin)
+        assert isinstance(resource.resource, GenericPluttoResource)
+        assert resource.resource.id == data["resource"]["id"]
+        assert isinstance(resource.resources, list)
+        for sub_resource in resource.resources:
+            assert isinstance(sub_resource, GenericPluttoResource)
+
+    def test_complex_mock_resource(self):
+        methods = []
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = ComplexMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        assert isinstance(resource, ResourceMixin)
+        assert isinstance(resource.resource, GenericPluttoResource)
+        assert resource.resource.id == data["resource"]["id"]
+        assert isinstance(resource.resources, list)
+        for sub_resource in resource.resources:
+            assert isinstance(sub_resource, GenericPluttoResource)
+
+    def test_update_delete_methods_access(self):
+        methods = ["delete"]
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = EmptyMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        assert isinstance(resource, ResourceMixin)
+
+        with pytest.raises(AttributeError):
+            resource.update()
+
+        resource.delete()
+
+
+class TestMixinUpdateAndDeleteMethods:
+    @pytest.fixture(autouse=True)
+    def patch_http_client(self, patch_http_client):
+        pass
+
+    def setup_method(self):
+        self.base_url = "https://test.com"
+        self.api_key = "test_api_key"
+        self.user_agent = "plutto-python/test"
+        self.params = {"first_param": "value1", "second_param": "value2"}
+        self.client = Client(
+            self.base_url,
+            self.api_key,
+            self.user_agent,
+            params=self.params,
+        )
+        self.path = "/resources"
+        self.handlers = {
+            "update": lambda object_, identifier: print("Calling update...") or object_,
+            "delete": lambda identifier: print("Calling delete...") or identifier,
+        }
+
+    def test_complex_mock_resource_delete_method(self, capsys):
+        methods = ["delete"]
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = EmptyMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        identifier = resource.delete()
+
+        captured = capsys.readouterr().out
+        assert "delete" in captured
+
+        assert identifier != data["identifier"]
+        assert identifier == data["id"]
+
+    def test_empty_mock_resource_delete_method(self, capsys):
+        methods = ["delete"]
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = ComplexMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        identifier = resource.delete()
+
+        captured = capsys.readouterr().out
+        assert "delete" in captured
+
+        assert identifier != data["id"]
+        assert identifier == data["identifier"]
+
+    def test_complex_mock_resource_update_method(self, capsys):
+        methods = ["update"]
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = EmptyMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        resource.update("resource_doesnt_exist")
+
+        captured = capsys.readouterr().out
+        assert "update" in captured
+
+        assert data["identifier"] not in resource.url
+        assert data["id"] in resource.url
+
+    def test_empty_mock_resource_update_method(self, capsys):
+        methods = ["update"]
+        data = {
+            "id": "id0",
+            "identifier": "identifier0",
+            "resources": [
+                {"id": "id1", "identifier": "identifier1"},
+                {"id": "id2", "identifier": "identifier2"},
+            ],
+            "resource": {"id": "id3", "identifier": "identifier3"},
+        }
+        resource = ComplexMockResource(
+            self.client, self.handlers, methods, self.path, **data
+        )
+        resource.update("resource_doesnt_exist")
+
+        captured = capsys.readouterr().out
+        assert "update" in captured
+
+        assert data["id"] not in resource.url
+        assert data["identifier"] in resource.url
