@@ -62,3 +62,20 @@ class TestCorePluttoObject:
         assert plutto.meter_events is not None
         assert isinstance(plutto.meter_events, ManagerMixin)
         assert isinstance(plutto._Plutto__meter_events_manager, ManagerMixin)
+
+    def test_invoices_manager(self):
+        # pylint: disable=protected-access
+        api_key = "test_api_key"
+        plutto = Plutto(api_key)
+
+        assert plutto._Plutto__invoices_manager is None
+        assert isinstance(plutto.invoices, ManagerMixin)
+        assert plutto._Plutto__invoices_manager is not None
+        assert isinstance(plutto._Plutto__invoices_manager, ManagerMixin)
+
+        with pytest.raises(NameError):
+            plutto.invoices = None
+
+        assert plutto.invoices is not None
+        assert isinstance(plutto.invoices, ManagerMixin)
+        assert isinstance(plutto._Plutto__invoices_manager, ManagerMixin)
