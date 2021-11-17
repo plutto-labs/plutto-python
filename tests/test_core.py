@@ -10,7 +10,6 @@ class TestCorePluttoObject:
         api_key = "test_api_key"
         plutto = Plutto(api_key)
         assert isinstance(plutto._client, Client)
-        assert isinstance(plutto.customers, ManagerMixin)
 
     def test_customers_manager(self):
         # pylint: disable=protected-access
@@ -79,3 +78,20 @@ class TestCorePluttoObject:
         assert plutto.invoices is not None
         assert isinstance(plutto.invoices, ManagerMixin)
         assert isinstance(plutto._Plutto__invoices_manager, ManagerMixin)
+
+    def test_products_manager(self):
+        # pylint: disable=protected-access
+        api_key = "test_api_key"
+        plutto = Plutto(api_key)
+
+        assert plutto._Plutto__products_manager is None
+        assert isinstance(plutto.products, ManagerMixin)
+        assert plutto._Plutto__products_manager is not None
+        assert isinstance(plutto._Plutto__products_manager, ManagerMixin)
+
+        with pytest.raises(NameError):
+            plutto.products = None
+
+        assert plutto.products is not None
+        assert isinstance(plutto.products, ManagerMixin)
+        assert isinstance(plutto._Plutto__products_manager, ManagerMixin)
