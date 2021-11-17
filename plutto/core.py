@@ -8,6 +8,8 @@ from plutto.managers import (
     CustomersManager,
     InvoicesManager,
     MeterEventsManager,
+    PermissionGroupsManager,
+    ProductsManager,
     SubscriptionsManager,
 )
 from plutto.version import __version__
@@ -28,6 +30,8 @@ class Plutto:
         self.__subscriptions_manager = None
         self.__meter_events_manager = None
         self.__invoices_manager = None
+        self.__products_manager = None
+        self.__permission_groups_manager = None
 
     @property
     def customers(self):
@@ -79,4 +83,30 @@ class Plutto:
 
     @invoices.setter
     def invoices(self, value):  # pylint: disable=no-self-use
+        raise NameError("Attribute name corresponds to a manager")
+
+    @property
+    def products(self):
+        """Proxies the products manager."""
+        if self.__products_manager is None:
+            self.__products_manager = ProductsManager("/products", self._client)
+
+        return self.__products_manager
+
+    @products.setter
+    def products(self, value):  # pylint: disable=no-self-use
+        raise NameError("Attribute name corresponds to a manager")
+
+    @property
+    def permission_groups(self):
+        """Proxies the permission groups manager."""
+        if self.__permission_groups_manager is None:
+            self.__permission_groups_manager = PermissionGroupsManager(
+                "/permission_groups", self._client
+            )
+
+        return self.__permission_groups_manager
+
+    @permission_groups.setter
+    def permission_groups(self, value):  # pylint: disable=no-self-use
         raise NameError("Attribute name corresponds to a manager")
