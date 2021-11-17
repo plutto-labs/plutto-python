@@ -3,5 +3,6 @@
 from .customer import Customer
 from .customer_permission import CustomerPermission
 from .generic_plutto_resource import GenericPluttoResource
+from .invoice import Invoice
 from .meter_event import MeterEventResource
 from .subscription import Subscription
