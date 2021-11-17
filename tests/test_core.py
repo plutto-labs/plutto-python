@@ -95,3 +95,20 @@ class TestCorePluttoObject:
         assert plutto.products is not None
         assert isinstance(plutto.products, ManagerMixin)
         assert isinstance(plutto._Plutto__products_manager, ManagerMixin)
+
+    def test_permission_groups(self):
+        # pylint: disable=protected-access
+        api_key = "test_api_key"
+        plutto = Plutto(api_key)
+
+        assert plutto._Plutto__permission_groups_manager is None
+        assert isinstance(plutto.permission_groups, ManagerMixin)
+        assert plutto._Plutto__permission_groups_manager is not None
+        assert isinstance(plutto._Plutto__permission_groups_manager, ManagerMixin)
+
+        with pytest.raises(NameError):
+            plutto.permission_groups = None
+
+        assert plutto.permission_groups is not None
+        assert isinstance(plutto.permission_groups, ManagerMixin)
+        assert isinstance(plutto._Plutto__permission_groups_manager, ManagerMixin)

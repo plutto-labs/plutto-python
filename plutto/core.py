@@ -8,6 +8,7 @@ from plutto.managers import (
     CustomersManager,
     InvoicesManager,
     MeterEventsManager,
+    PermissionGroupsManager,
     ProductsManager,
     SubscriptionsManager,
 )
@@ -30,6 +31,7 @@ class Plutto:
         self.__meter_events_manager = None
         self.__invoices_manager = None
         self.__products_manager = None
+        self.__permission_groups_manager = None
 
     @property
     def customers(self):
@@ -95,3 +97,16 @@ class Plutto:
     def products(self, value):  # pylint: disable=no-self-use
         raise NameError("Attribute name corresponds to a manager")
 
+    @property
+    def permission_groups(self):
+        """Proxies the permission groups manager."""
+        if self.__permission_groups_manager is None:
+            self.__permission_groups_manager = PermissionGroupsManager(
+                "/permission_groups", self._client
+            )
+
+        return self.__permission_groups_manager
+
+    @permission_groups.setter
+    def permission_groups(self, value):  # pylint: disable=no-self-use
+        raise NameError("Attribute name corresponds to a manager")
