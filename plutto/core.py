@@ -4,7 +4,7 @@ Core module to house the Plutto object of the Plutto Python SDK.
 
 from plutto.client import Client
 from plutto.constants import API_BASE_URL, API_VERSION
-from plutto.managers import CustomersManager, SubscriptionsManager
+from plutto.managers import CustomersManager, MeterEventsManager, SubscriptionsManager
 from plutto.version import __version__
 
 
@@ -21,6 +21,7 @@ class Plutto:
 
         self.__customers_manager = None
         self.__subscriptions_manager = None
+        self.__meter_events_manager = None
 
     @property
     def customers(self):
@@ -46,4 +47,18 @@ class Plutto:
 
     @subscriptions.setter
     def subscriptions(self, value):  # pylint: disable=no-self-use
+        raise NameError("Attribute name corresponds to a manager")
+
+    @property
+    def meter_events(self):
+        """Proxies the meter events manager."""
+        if self.__meter_events_manager is None:
+            self.__meter_events_manager = MeterEventsManager(
+                "/meter_events", self._client
+            )
+
+        return self.__meter_events_manager
+
+    @meter_events.setter
+    def meter_events(self, value):  # pylint: disable=no-self-use
         raise NameError("Attribute name corresponds to a manager")

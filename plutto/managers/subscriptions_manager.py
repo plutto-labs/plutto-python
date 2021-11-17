@@ -13,6 +13,7 @@ class SubscriptionsManager(ManagerMixin):
 
     @can_raise_http_error
     def end(self, unique_identifier, **kwargs):
+        """Ends the subscription which has unique identifier as id"""
         klass = get_resource_class(self.__class__.resource)
         object_ = resource_patch(
             client=self._client,

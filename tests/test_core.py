@@ -45,3 +45,20 @@ class TestCorePluttoObject:
         assert plutto.subscriptions is not None
         assert isinstance(plutto.subscriptions, ManagerMixin)
         assert isinstance(plutto._Plutto__subscriptions_manager, ManagerMixin)
+
+    def test_meter_events_manager(self):
+        # pylint: disable=protected-access
+        api_key = "test_api_key"
+        plutto = Plutto(api_key)
+
+        assert plutto._Plutto__meter_events_manager is None
+        assert isinstance(plutto.meter_events, ManagerMixin)
+        assert plutto._Plutto__meter_events_manager is not None
+        assert isinstance(plutto._Plutto__meter_events_manager, ManagerMixin)
+
+        with pytest.raises(NameError):
+            plutto.meter_events = None
+
+        assert plutto.meter_events is not None
+        assert isinstance(plutto.meter_events, ManagerMixin)
+        assert isinstance(plutto._Plutto__meter_events_manager, ManagerMixin)
