@@ -42,3 +42,12 @@ class TestSubscriptionsManagerMethods:
         object_ = self.manager.add_pricings("id", **payload)
         assert isinstance(object_, ResourceMixin)
 
+    def test_remove_one_pricing(self):
+        payload = {"princing_ids": ["pricing_id"]}
+        object_ = self.manager.remove_pricings("id", **payload)
+        assert isinstance(object_, ResourceMixin)
+
+    def test_remove_many_pricings(self):
+        payload = {"pricing_ids": ["pricing_id_1", "pricing_id_2", "pricing_id_3"]}
+        object_ = self.manager.remove_pricings("id", **payload)
+        assert isinstance(object_, ResourceMixin)
