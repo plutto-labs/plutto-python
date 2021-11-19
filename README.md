@@ -85,6 +85,33 @@ customer = client.customers.get("customer_id")
 isinstance(customer, Customer) # True
 ```
 
+#### `create`
+_Note_: this method is only available in `customers`, `meter_events` and `subscriptions` **managers**
+
+This method creates and returns a new instance of the resource. The attributes of the resource to be created must be passed as `kwargs`. This parameters are specified in the API documentation of the correspondant resource
+
+```python3
+payload = {
+    "identifier": "your-id_12885305",
+    "email": "donald@getplutto.com",
+    "name": "Donald",
+    "billing_information": {
+        "city": "Santiago",
+        "country_iso_code": "CL",
+        "state": "Metropolitana",
+        "address": "Av. Las Condes",
+        "zip": "12345",
+        "tax_id": "73245432-1",
+        "legal_name": "Plutto Inc",
+        "activity": "Software Development",
+        "phone": "+56992680522"
+    }
+}
+
+customer = client.customer.create(**payload)
+```
+
+
 
 ## Testing
 
