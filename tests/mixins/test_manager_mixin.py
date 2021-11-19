@@ -1,3 +1,5 @@
+from types import GeneratorType
+
 import pytest
 
 from plutto.client import Client
@@ -103,6 +105,12 @@ class TestManagerMixinMethods:
         )
         self.path = "/resources"
         self.manager = EmptyMockManager(self.path, self.client)
+
+    def test_all_lazy_method(self):
+        objects = self.manager.all()
+        assert isinstance(objects, GeneratorType)
+        for object_ in objects:
+            assert isinstance(object_, ResourceMixin)
 
     def test_all_not_lazy_method(self):
         objects = self.manager.all(lazy=False)
