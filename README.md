@@ -43,6 +43,15 @@ from plutto import Plutto
 client = Plutto("your_api_key")
 ```
 
+### Managers
+How to manage the resources getted by the SDK? Easy, **managers** (_big brain time_). **Managers** are the python objects that will let you work with any resource, obviously, inside the Plutto API. All the existing **managers** are inside the `Plutto` object. These are:
+- `customers`
+- `invoices`
+- `meter_events`
+- `permission_groups`
+- `products`
+- `subscriptions`
+
 
 TODO
 
