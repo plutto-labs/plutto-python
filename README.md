@@ -133,7 +133,7 @@ TODO
 
 Thank you [contributors](https://github.com/plutto-labs/plutto-python/graphs/contributors)!
 
-Plutto Ruby SDK is maintained by [plutto](https://https://plutto.cl/).
+Plutto Ruby SDK is maintained by [Plutto](https://plutto.cl/).
 
 ## License
 
