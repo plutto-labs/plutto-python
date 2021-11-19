@@ -24,6 +24,6 @@ class TestCustomerManagerMethods:
         self.path = "/resources"
         self.manager = CustomersManager(self.path, self.client)
 
-    def test_permission_test(self):
+    def test_permission(self):
         object_ = self.manager.permission("id", "permission_name")
         assert isinstance(object_, ResourceMixin)
