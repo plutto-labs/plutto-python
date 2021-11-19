@@ -52,8 +52,29 @@ How to manage the resources getted by the SDK? Easy, **managers** (_big brain ti
 - `products`
 - `subscriptions`
 
+#### `all`
+_Note_: this method is only available in `customers`, `invoices`, `permission_groups` and `products` **managers**
 
-TODO
+```python
+customers = client.customers.all()
+```
+
+This method returns a **a generator** with all the instances of the customers resource. But, what if the API can recive more params? `kwargs` to the rescue! This way you can pass params like `q[status_eq]` and `q[customer_eq]` to filter the `Invoices`. If you want to get `invoices` with an specific _status_ and _customer_, you need to pass those params to the request
+```python
+params = {
+    "q[status_eq]": "paid",
+    "q[customer_eq]": "customer_id"
+}
+invoices = client.invoices.all(**params)
+```
+
+Also, if you pass the `lazy=False` parameter, this will force the method of the SDK to return a list of the instances of the resource, instead of the generetors of them. **Disclaimer**: This could take very long if you have a lot of instances to be getted.
+
+```python3
+customers = client.customers.all(lazy=False)
+isinstance(customers, list) # True
+```
+
 
 ## Testing
 
