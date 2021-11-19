@@ -9,7 +9,7 @@ class CustomersManager(ManagerMixin):
     """Class to hold the customers manager."""
 
     resource = "customer"
-    methods = ["all", "get", "create", "update", "delete"]
+    methods = ["all", "get", "create", "update", "delete", "permission"]
 
     @can_raise_http_error
     def permission(self, unique_identifier, permission_name, **kwargs):
