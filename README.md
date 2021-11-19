@@ -34,6 +34,15 @@ $ pip3 install plutto
 ## Usage
 With this SDK we want to provide a wrapper to the [Plutto API](https://docs.getplutto.com/reference/get_customers) with a very intuitive way of use. All the methods were implemented as in the API documentation, reading it will enable you to use this SDK
 
+### Quickstart
+First of all, you will need a [Plutto] account. After creating it, you can get your API key, which will let you to use the `Plutto` object. Then, you're ready to use this awesome SDK!
+
+```python
+from plutto import Plutto
+
+client = Plutto("your_api_key")
+```
+
 
 TODO
 
