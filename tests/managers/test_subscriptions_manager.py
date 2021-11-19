@@ -28,7 +28,7 @@ class TestSubscriptionsManagerMethods:
         self.path = "/resources"
         self.manager = MockSubscriptionsManager(self.path, self.client)
 
-    def test_end_test(self):
+    def test_end(self):
         object_ = self.manager.end("id")
         assert isinstance(object_, ResourceMixin)
 
