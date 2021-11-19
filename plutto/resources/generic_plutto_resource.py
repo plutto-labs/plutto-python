@@ -1,4 +1,4 @@
-"""Module to hold a generic resource."""
+"""Module to hold a Generic Resource."""
 
 from plutto.mixins import ResourceMixin
 

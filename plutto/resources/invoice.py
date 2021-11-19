@@ -1,4 +1,4 @@
-"""Module to hold the invoice resource."""
+"""Module to hold the Invoice resource."""
 
 from plutto.mixins import ResourceMixin
 

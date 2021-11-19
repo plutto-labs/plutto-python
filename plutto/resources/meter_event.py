@@ -1,4 +1,4 @@
-"""Module to hold a meter event resource."""
+"""Module to hold a Meter Event resource."""
 
 from plutto.mixins import ResourceMixin
 

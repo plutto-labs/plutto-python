@@ -1,4 +1,4 @@
-"""Module to hold the product resource."""
+"""Module to hold the Product resource."""
 
 from plutto.mixins.resource_mixin import ResourceMixin
 
