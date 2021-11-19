@@ -24,10 +24,12 @@ This library will help you easily integrate Plutto API to your software, making 
 ---
 
 ## Installation
+Install using pip
 
 ```bash
 $ pip3 install plutto
 ```
+*Note:* This SDK requires [Python 3.7+](https://www.python.org/downloads/release/python-370/)
 
 ## Usage
 
