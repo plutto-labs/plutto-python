@@ -32,6 +32,8 @@ $ pip3 install plutto
 *Note:* This SDK requires [Python 3.7+](https://www.python.org/downloads/release/python-370/)
 
 ## Usage
+With this SDK we want to provide a wrapper to the [Plutto API](https://docs.getplutto.com/reference/get_customers) with a very intuitive way of use. All the methods were implemented as in the API documentation, reading it will enable you to use this SDK
+
 
 TODO
 
