@@ -13,7 +13,7 @@ class InvoicesManager(ManagerMixin):
 
     @can_raise_http_error
     def mark_as(self, unique_identifier, **kwargs):
-        """Mark an invoice as paid."""
+        """Mark an invoice"""
         klass = get_resource_class(self.__class__.resource)
         object_ = resource_patch(
             client=self._client,
