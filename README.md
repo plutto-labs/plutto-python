@@ -75,6 +75,16 @@ customers = client.customers.all(lazy=False)
 isinstance(customers, list) # True
 ```
 
+#### `get`
+_Note_: this method is only available in `customers` and `invoices` **managers**
+
+This method returns an instance of a resource using it's identifier to find it
+
+```python3
+customer = client.customers.get("customer_id")
+isinstance(customer, Customer) # True
+```
+
 
 ## Testing
 
