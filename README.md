@@ -32,7 +32,7 @@ $ pip3 install plutto
 *Note:* This SDK requires [Python 3.7+](https://www.python.org/downloads/release/python-370/)
 
 ## Usage
-With this SDK we want to provide a wrapper to the [Plutto API](https://docs.getplutto.com/reference/get_customers) with a very intuitive way of use. All the methods were implemented as in the API documentation, reading it will enable you to use this SDK
+With this SDK we want to provide a wrapper to the [Plutto API](https://docs.getplutto.com/reference) with a very intuitive way of use. All the methods were implemented as in the API documentation, we strongly recommend to read it before using this SDK
 
 ### Quickstart
 First of all, you will need a [Plutto] account. After creating it, you can get your API key, which will let you to use the `Plutto` object. Then, you're ready to use this awesome SDK!
@@ -44,7 +44,7 @@ client = Plutto("your_api_key")
 ```
 
 ### Managers
-How to manage the resources getted by the SDK? Easy, **managers** (_big brain time_). **Managers** are the python objects that will let you work with any resource, obviously, inside the Plutto API. All the existing **managers** are inside the `Plutto` object. These are:
+To manage the resources retrieved by the SDK we use managers. They are python objects that let you with any object inside Plutto API.. All the existing **managers** are inside the `Plutto` object. These are:
 - `customers`
 - `invoices`
 - `meter_events`
@@ -68,7 +68,7 @@ params = {
 invoices = client.invoices.all(**params)
 ```
 
-Also, if you pass the `lazy=False` parameter, this will force the method of the SDK to return a list of the instances of the resource, instead of the generetors of them. **Disclaimer**: This could take very long if you have a lot of instances to be getted.
+Also, if you pass the `lazy=False` parameter, this will force the method of the SDK to return a list of the instances of the resource, instead of the generetors of them. **Disclaimer**: This could take very long if you have a lot of instances to be retrieved.
 
 ```python3
 customers = client.customers.all(lazy=False)
@@ -104,7 +104,7 @@ payload = {
         "tax_id": "73245432-1",
         "legal_name": "Plutto Inc",
         "activity": "Software Development",
-        "phone": "+56992680522"
+        "phone": "+56912345678"
     }
 }
 
@@ -175,7 +175,7 @@ TODO
 
 Thank you [contributors](https://github.com/plutto-labs/plutto-python/graphs/contributors)!
 
-Plutto Ruby SDK is maintained by [Plutto](https://plutto.cl/).
+Plutto Ruby SDK is maintained by [Plutto](https://getplutto.com).
 
 ## License
 
