@@ -138,7 +138,22 @@ example_customer.update(
 This way, you can call `update` on the objects you are already working with, evitating to make an innescesary API call and saving some words
 
 
+#### `delete`
 _Note_: this method is only available in `customers` manager
+
+```python3
+deleted_customer_id = client.customers.delete("customer_id")
+```
+This method deletes an existing instance of a resource by it's identifier, and returns it. As in the `update` method, you can call `delete` on an resource object, for the same reasons explained in the previous method
+
+```python3
+# Get the resource
+customer = client.customers.get("customer_id")
+
+# Delete de resource
+deleted_customer_id = customer.delete()
+```
+
 
 ## Testing
 
