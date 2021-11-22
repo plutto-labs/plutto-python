@@ -1,7 +1,13 @@
 from abc import ABCMeta
 
 from plutto.resource_handlers import resource_delete, resource_update
-from plutto.utils import can_raise_http_error, get_resource_class, objetize, singularize
+from plutto.utils import (
+    can_raise_http_error,
+    get_resource_class,
+    objetize,
+    serialize,
+    singularize,
+)
 
 
 class ResourceMixin(metaclass=ABCMeta):
@@ -38,6 +44,18 @@ class ResourceMixin(metaclass=ABCMeta):
                 f"{self.__class__.__name__} has no attribute {attr.lstrip('_')}"
             )
         return getattr(self, f"_{attr}")
+
+    def serialize(self):
+        """Serialize the resource"""
+        serialized = {}
+        for key in self._attributes:
+            element = (
+                [serialize(x) for x in self.__dict__[key]]
+                if isinstance(self.__dict__[key], list)
+                else serialize(self.__dict__[key])
+            )
+            serialized = {**serialized, key: element}
+        return serialized
 
     @can_raise_http_error
     def _update(self, resource, **kwargs):
