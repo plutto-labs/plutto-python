@@ -156,12 +156,7 @@ deleted_customer_id = customer.delete()
 
 
 ## Testing
-
-TODO
-
-## Publishing
-
-TODO
+Every piece of code modified or added must be tested. The coverage always have to be increased or maintained, this will be checked in all PR
 
 ## Contributing
 
