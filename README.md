@@ -111,7 +111,32 @@ payload = {
 customer = client.customer.create(**payload)
 ```
 
+#### `update`
 _Note_: this method is only available in `customers` manager
+
+```python3
+customer = client.cuestomers.update(
+    "user_id",
+    email="goofy@getplutto.com",
+    name="Goofy"
+)
+```
+This is an example of how can be used the update method. The first parameter corresponds to the id of the customer, this way the manager can find the existing resource. Then, the attributes that want to be modified are passed as `kwargs`, this ones are specified in the API in the correspondant resource update method.
+This manager method is making two calls to the Plutto API, the first, to get the resource, and the second to update it. Therefore, if you only want to make one API call and already got the reource python object, you can call update directly on the object
+
+```python3
+# Get the object
+example_customer = client.customers.get("customer_id")
+
+# Update the customer
+example_customer.update(
+    email="goofy@getplutto.com",
+    name="Goofy"
+)
+```
+
+This way, you can call `update` on the objects you are already working with, evitating to make an innescesary API call and saving some words
+
 
 _Note_: this method is only available in `customers` manager
 
