@@ -172,6 +172,10 @@ Thank you [contributors](https://github.com/plutto-labs/plutto-python/graphs/con
 
 Plutto Ruby SDK is maintained by [Plutto](https://getplutto.com).
 
+
+## Acknowledgments
+
+This SDK was strongly based on the [Fintoc python's SDK](https://github.com/fintoc-com/fintoc-python), designed by [Daniel Leal](https://github.com/daleal)
 ## License
 
 Plutto Ruby SDK is © 2021 plutto, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
