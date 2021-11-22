@@ -53,7 +53,7 @@ How to manage the resources getted by the SDK? Easy, **managers** (_big brain ti
 - `subscriptions`
 
 #### `all`
-_Note_: this method is only available in `customers`, `invoices`, `permission_groups` and `products` **managers**
+_Note_: this method is only available in `customers`, `invoices`, `permission_groups` and `products` managers
 
 ```python
 customers = client.customers.all()
@@ -76,7 +76,7 @@ isinstance(customers, list) # True
 ```
 
 #### `get`
-_Note_: this method is only available in `customers` and `invoices` **managers**
+_Note_: this method is only available in `customers` and `invoices` managers
 
 This method returns an instance of a resource using it's identifier to find it
 
@@ -86,7 +86,7 @@ isinstance(customer, Customer) # True
 ```
 
 #### `create`
-_Note_: this method is only available in `customers`, `meter_events` and `subscriptions` **managers**
+_Note_: this method is only available in `customers`, `meter_events` and `subscriptions` managers
 
 This method creates and returns a new instance of the resource. The attributes of the resource to be created must be passed as `kwargs`. This parameters are specified in the API documentation of the correspondant resource
 
@@ -111,7 +111,9 @@ payload = {
 customer = client.customer.create(**payload)
 ```
 
+_Note_: this method is only available in `customers` manager
 
+_Note_: this method is only available in `customers` manager
 
 ## Testing
 
