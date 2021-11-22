@@ -156,12 +156,24 @@ deleted_customer_id = customer.delete()
 
 
 ## Testing
+All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
 
-TODO
+```bash
+pytest .
+```
+
+
+Every piece of code modified or added must be tested. The coverage always have to be increased or maintained, this will be checked in all PR
 
 ## Publishing
 
-TODO
+On master/main branch...
+
+1. Change `VERSION` in `plutto//version.py`.
+2. Change `Unreleased` title to current version in `CHANGELOG.md`.
+3. Commit new release. For example: `Releasing v0.1.0`.
+4. Create tag. For example: `git tag v0.1.0`.
+5. Push tag. For example: `git push origin v0.1.0`.
 
 ## Contributing
 
@@ -177,6 +189,10 @@ Thank you [contributors](https://github.com/plutto-labs/plutto-python/graphs/con
 
 Plutto Ruby SDK is maintained by [Plutto](https://getplutto.com).
 
+
+## Acknowledgments
+
+This SDK was strongly based on the [Fintoc python's SDK](https://github.com/fintoc-com/fintoc-python), designed by [Daniel Leal](https://github.com/daleal)
 ## License
 
-Plutto Ruby SDK is © 2021 plutto, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+Plutto Python SDK is © 2021 plutto, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
