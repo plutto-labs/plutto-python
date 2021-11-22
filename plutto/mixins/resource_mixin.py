@@ -5,8 +5,8 @@ from plutto.utils import (
     can_raise_http_error,
     get_resource_class,
     objetize,
+    serialize,
     singularize,
-    serialize
 )
 
 

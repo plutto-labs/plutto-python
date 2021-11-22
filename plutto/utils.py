@@ -1,7 +1,7 @@
+import datetime
 from importlib import import_module
 
 import httpx
-import datetime
 
 from plutto.errors import PluttoError
 
@@ -62,6 +62,7 @@ def can_raise_http_error(function):
 
     return wrapper
 
+
 def serialize(object_):
     """Serialize an object."""
     if callable(getattr(object_, "serialize", None)):
@@ -69,6 +70,7 @@ def serialize(object_):
     if isinstance(object_, datetime.datetime):
         return object_.isoformat()
     return object_
+
 
 def objetize(klass, client, data, handlers={}, methods=[], path=None):
     """Transform the :data: object into an object with class :klass:"""
