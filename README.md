@@ -156,7 +156,7 @@ deleted_customer_id = customer.delete()
 
 
 ## Testing
-To run the tests you nedd to execute the following command on the root path of the plutto library
+All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
 
 ```bash
 pytest .
