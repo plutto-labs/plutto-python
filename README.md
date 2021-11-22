@@ -156,6 +156,13 @@ deleted_customer_id = customer.delete()
 
 
 ## Testing
+To run the tests you nedd to execute the following command on the root path of the plutto library
+
+```bash
+pytest .
+```
+
+
 Every piece of code modified or added must be tested. The coverage always have to be increased or maintained, this will be checked in all PR
 
 ## Contributing
