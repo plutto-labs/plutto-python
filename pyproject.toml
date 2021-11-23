@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "plutto"
-version = "0.1.0"
+version = "0.2.0"
 description = "The official Python client for Plutto API"
 authors = ["Nicolas Massardo <nmassardot@uc.cl>"]
 license = "BSD-3-Clause"
