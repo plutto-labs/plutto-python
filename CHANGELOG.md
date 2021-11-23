@@ -5,3 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### v0.1.0
 
 * Initial release.
+
+### v0.2.0
+
+* Change URL to live
