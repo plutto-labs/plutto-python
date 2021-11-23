@@ -79,3 +79,12 @@ def objetize(klass, client, data, handlers={}, methods=[], path=None):
     if klass in [str, int, dict, float, bool]:
         return klass(data)
     return klass(client, handlers, methods, path, **data)
+
+
+def objetize_generator(generator, klass, client, handlers={}, methods=[], path=None):
+    """
+    Transform a generator of dictionaries into a generator of
+    objects with class :klass:.
+    """
+    for element in generator:
+        yield objetize(klass, client, element, handlers, methods, path)
