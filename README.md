@@ -334,6 +334,18 @@ meter_event = client.meter_events.create(**payload)
 ```
 
 
+#### `permission_groups` manager
+_Available methods_: Only `all`
+
+You can get all the permission groups as follows
+
+```python3
+permission_groups = client.permission_groups.all()
+for permission_group in permission_groups:
+    print(permission_group.name)
+```
+
+
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
 
