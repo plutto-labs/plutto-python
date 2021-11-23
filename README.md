@@ -233,6 +233,78 @@ deleted_customer_id = customer.delete()
 ```
 
 
+#### `invoices` manager
+
+_Available methods_: `all`, `get` and `mark_as`
+
+To get all the existing invoices you can do the following
+
+```python3
+invoices = client.invoices.all()
+
+for invoice in invoices:
+    print(invoice.id)
+
+# If filtering by params is needed
+params = {
+    "q[status_eq]": "paid",
+    "q[customer_eq]": "customer_id"
+}
+invoices = client.invoices.all(**params)
+```
+
+To get a specific invoice, you can use it's id
+
+```python3
+inovice = client.invoices.get("invoice_id")
+```
+
+It's possible to change an invoice status through the manager. The possible status are [specified in the docs](https://docs.getplutto.com/reference/patch_invoices-id-mark-as)
+
+```python3
+invoice = client.invoices.mark_as("invoice_id", status="paid")
+```
+
+#### `meter_events` manager
+_Available methods_: Only `create`
+
+It's possible to create a meter event this way
+
+```python3
+payload = {
+    "customer_id": "example_customer_id",
+    "meter_id": "example_meter_id",
+    "amout": 100,
+    "action": "set"
+}
+meter_event = client.meter_events.create(**payload)
+```
+
+
+#### `permission_groups` manager
+_Available methods_: Only `all`
+
+You can get all the permission groups as follows
+
+```python3
+permission_groups = client.permission_groups.all()
+for permission_group in permission_groups:
+    print(permission_group.name)
+```
+
+
+#### `products` manager
+_Available methods_: Only `all`
+
+You can get all the products as follows
+
+```python3
+products = client.products.all()
+for product in products:
+    print(product.name)
+```
+
+
 #### `subscriptions` manager
 
 To create a new subscription through the manager you can do the following. The attributes must be passed as kwargs. Required and optional ones are [specified in the docs](https://docs.getplutto.com/reference/post_subscriptions)
@@ -285,6 +357,7 @@ serialized_customer = customer.serialize()
 ```
 
 `serialized_customer` corresponds to a dictionary with only the attributes of the retrieved resource. It can be JSON-serialized
+
 
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
