@@ -346,6 +346,21 @@ for permission_group in permission_groups:
 ```
 
 
+#### `products` manager
+_Available methods_: Only `all`
+
+You can get all the products as follows
+
+```python3
+products = client.products.all()
+for product in products:
+    print(product.name)
+```
+
+
+
+
+
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
 
