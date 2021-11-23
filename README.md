@@ -276,6 +276,15 @@ subscription = client.subscriptions.remove_pricings("subscription_id", **payload
 ```
 
 
+## Serialization
+Any resource retrieved by the SDK can be serialize, and it's super easy to do it. You just need to call the `serialize` method, and it's available in any resource
+
+```python3
+customer = client.customers.get("customer_id")
+serialized_customer = customer.serialize()
+```
+
+`serialized_customer` corresponds to a dictionary with only the attributes of the retrieved resource. It can be JSON-serialized
 
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
