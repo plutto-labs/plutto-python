@@ -233,6 +233,38 @@ deleted_customer_id = customer.delete()
 ```
 
 
+#### `invoices` manager
+
+_Available methods_: `all`, `get` and `mark_as`
+
+To get all the existing invoices you can do the following
+
+```python3
+invoices = client.invoices.all()
+
+for invoice in invoices:
+    print(invoice.id)
+
+# If filtering by params is needed
+params = {
+    "q[status_eq]": "paid",
+    "q[customer_eq]": "customer_id"
+}
+invoices = client.invoices.all(**params)
+```
+
+To get a specific invoice, you can use it's id
+
+```python3
+inovice = client.invoices.get("invoice_id")
+```
+
+It's possible to change an invoice status through the manager. The possible status are [specified in the docs](https://docs.getplutto.com/reference/patch_invoices-id-mark-as)
+
+```python3
+invoice = client.invoices.mark_as("invoice_id", status="paid")
+```
+
 #### `subscriptions` manager
 
 To create a new subscription through the manager you can do the following. The attributes must be passed as kwargs. Required and optional ones are [specified in the docs](https://docs.getplutto.com/reference/post_subscriptions)
