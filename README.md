@@ -154,6 +154,85 @@ customer = client.customers.get("customer_id")
 deleted_customer_id = customer.delete()
 ```
 
+
+### How to use this SDK
+The way to use is very similar to the API. For all the methods you need the `Plutto` object
+
+#### `Plutto` object
+Instantiate the object using your secret API key
+```python3
+from plutto import Plutto
+
+client = Plutto("secret_api_key")
+```
+This client will give you access to all the managers that are available in this SDK. That means you can work with any [manager](#managers) you want from this object
+
+#### `customers` manager
+
+_Available methods_: `all`, `get`, `create`, `update` and `delete`
+
+From the `Plutto` object you can manage your `customers` easily. You can get all the customers that have been created
+
+```python3
+customers = client.customers.all()
+for customer in customers:
+    print(customer.name)
+```
+
+Also, if you have the id, you can get a singular customer
+
+```python3
+customer = client.customers.get("id_of_the_customer")
+```
+
+Need a new customer? Creating it is very intuitive, just pass the [parameters specified in the docs](https://docs.getplutto.com/reference/post_customers) as kwargs
+
+```python3
+payload = {
+    "email": "donald@getplutto.com",
+    "name": "donald",
+    "billing_information": {
+        "city": "Santiago",
+        "country_iso_code": "CL",
+        "legal_name": "Plutto",
+        "activity": "Software Development"
+    }
+}
+
+new_customer = client.customers.create(**payload)
+```
+
+If any customers need to be updated, you can do it with it's id and pass the params you want to update as kwargs
+
+```python3
+update_params = {
+    "name": "Goofy",
+    "email": "goofy@getplutto.com"
+}
+
+updated_customer = client.customers.update("update_customer_id", **update_params)
+
+# It can also be done this way
+update_params = {
+    "name": "Goofy",
+    "email": "goofy@getplutto.com"
+}
+
+customer = client.customers.get("update_customer_id")
+updated_customer = customer.update(**update_params)
+```
+
+Delete a customer can be done by passing it's id to the `delete` method
+
+```python3
+deleted_customer_id = client.customers.delete("delete_customer_id")
+
+# It can also be done this way
+customer = client.customers.get("delete_customer_id")
+deleted_customer_id = customer.delete()
+```
+
+
 #### `subscriptions` manager
 
 To create a new subscription through the manager you can do the following. The attributes must be passed as kwargs. Required and optional ones are [specified in the docs](https://docs.getplutto.com/reference/post_subscriptions)
