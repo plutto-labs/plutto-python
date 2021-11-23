@@ -373,7 +373,7 @@ Every piece of code modified or added must be tested. The coverage always have t
 
 On master/main branch...
 
-1. Change `VERSION` in `plutto//version.py`.
+1. Change `VERSION` in `plutto/version.py`.
 2. Change `Unreleased` title to current version in `CHANGELOG.md`.
 3. Commit new release. For example: `Releasing v0.1.0`.
 4. Create tag. For example: `git tag v0.1.0`.
