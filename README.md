@@ -318,6 +318,22 @@ serialized_customer = customer.serialize()
 
 `serialized_customer` corresponds to a dictionary with only the attributes of the retrieved resource. It can be JSON-serialized
 
+#### `meter_events` manager
+_Available methods_: Only `create`
+
+It's possible to create a meter event this way
+
+```python3
+payload = {
+    "customer_id": "example_customer_id",
+    "meter_id": "example_meter_id",
+    "amout": 100,
+    "action": "set"
+}
+meter_event = client.meter_events.create(**payload)
+```
+
+
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
 
