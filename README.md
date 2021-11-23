@@ -154,6 +154,49 @@ customer = client.customers.get("customer_id")
 deleted_customer_id = customer.delete()
 ```
 
+#### `subscriptions` manager
+
+To create a new subscription through the manager you can do the following. The attributes must be passed as kwargs. Required and optional ones are [specified in the docs](https://docs.getplutto.com/reference/post_subscriptions)
+
+```python3
+payload = {
+    "customer_id": "example_customer_id",
+    "pricing_ids": ["example_pricing_id_1", "example_pricing_id_2"]
+    "bills_at": "start",
+    "billing_period_duration": "P0Y1M0DT0H0M0S"
+}
+subscription = client.subscriptions.create(**payload)
+```
+
+To end a subscription you only need the id
+
+```python3
+subscription = client.subscriptions.end("subscription_id")
+```
+
+Adding a product pricing to a subscription
+
+```python3
+# pricing_ids can have only one item, but it must be a list
+payload = {
+    "pricing_ids": ["pricing_id_1", "pricing_id_2", "pricing_id_3"]
+}
+
+subscription = client.subscriptions.add_pricings("subscription_id", **payload)
+```
+
+To remove a pricing, you can do the following
+
+```python3
+# pricing_ids can have only one item, but it must be a list
+payload = {
+    "pricings_id": ["pricing_id_1", "pricing_id_2", "pricing_id_3"]
+}
+
+subscription = client.subscriptions.remove_pricings("subscription_id", **payload)
+```
+
+
 
 ## Testing
 All the tests must be added in the `tests/` directory. To run the tests you nedd to execute the following command on the root path of the plutto library
