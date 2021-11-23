@@ -174,7 +174,7 @@ To end a subscription you only need the id
 subscription = client.subscriptions.end("subscription_id")
 ```
 
-If adding a pricing (or multiple) is needed, you can do the following
+Adding a product pricing to a subscription
 
 ```python3
 # pricing_ids can have only one item, but it must be a list
